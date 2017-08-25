@@ -5,6 +5,7 @@
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\BalanceUpdater\BalanceUpdater.csproj" />
     <ProjectReference Include="..\BalanceChecker\BalanceChecker.csproj" />
+    <Content Include=".\Pipeline.xml" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
   <PropertyGroup>
