@@ -3,12 +3,23 @@ using Common;
 
 namespace BalanceChecker
 {
-   public class Pipeline : IAccountPipeline
+    public class Pipeline : IAccountPipeline
     {
         public Account Process(Account account)
         {
-            Console.WriteLine("From Checker");
-            return null;
+            if (account.Balance < 1000 && account.Balance > 500)
+            {
+                account.Status = AccountStatus.Average;
+            }
+            else if (account.Balance > 1000 && account.Balance < 2000)
+            {
+                account.Status = AccountStatus.Good;
+            }
+            else if (account.Balance > 2000 && account.Balance < 3000)
+            {
+                account.Status = AccountStatus.Great;
+            }
+            return account;
         }
     }
 }

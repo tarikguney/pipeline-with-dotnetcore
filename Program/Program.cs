@@ -30,8 +30,14 @@ namespace Program
                 types.Add(assembly.GetExportedTypes().First(a => a.FullName == typeName));
             }
 
-            var pipelineObjects = types.Select(a=>Activator.CreateInstance(a)).Cast<IAccountPipeline>();
-            Console.WriteLine(string.Join("\n", pipelineObjects.Select(b=>b.Process(null))).ToArray());
+            var pipelineObjects = types.Select(a => Activator.CreateInstance(a)).Cast<IAccountPipeline>();
+            var account = new Account();
+            account.FirstName = "Tarik";
+            account.LastName = "Guney";
+            account.Balance = 1000;
+
+            pipelineObjects.Select(b => b.Process(account));
+            ObjectDumper.Write(account, 1, Console.Out);
         }
     }
 }

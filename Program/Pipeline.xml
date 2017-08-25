@@ -1,5 +1,5 @@
 <Pipeline>
     <Process Assembly="BalanceCalculator.dll" Type="BalanceCalculator.Pipeline"/>
     <Process Assembly="BalanceChecker.dll" Type="BalanceChecker.Pipeline"/>
-    <Process Assembly="BalanceUpdater.dll" Type="BalanceUpdater.Pipeline"/>
+    <Process Assembly="CustomerTypeUpdater.dll" Type="CustomerTypeUpdater.Pipeline"/>
 </Pipeline>

@@ -6,8 +6,8 @@ namespace BalanceCalculator
     {
         public Account Process(Account account)
         {
-            Console.WriteLine("From Calculator");
-            return null;
+            account.Balance = account.Balance - (account.Balance * 10 / 100);
+            return account;
         }
     }
 }
