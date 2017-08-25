@@ -12,3 +12,5 @@ This code covers the following aspects in DotNet Core:
 6. Creating a simple pipeline using dotnet core.
 
 Questions? 
+
+![DotNet Core Tutorials](http://i.imgur.com/8qUMrQe.png "Logo Title Text 1")
