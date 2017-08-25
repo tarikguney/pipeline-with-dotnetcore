@@ -1,5 +1,7 @@
 # Learning DotNet Core with Examples
 
+## Building a pipeline using dotNet Core
+
 This project is created as an example for a video tutorial of mine about dotnet core. Once the video is published, the link will be put here.
 
 This code covers the following aspects in DotNet Core:
