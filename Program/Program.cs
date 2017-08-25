@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Collections.Generic;
+using Common;
 
 namespace Program
 {
@@ -29,7 +30,8 @@ namespace Program
                 types.Add(assembly.GetExportedTypes().First(a => a.FullName == typeName));
             }
 
-            Console.WriteLine(string.Join("\n", types.Select(a => a.FullName).ToArray()));
+            var pipelineObjects = types.Select(a=>Activator.CreateInstance(a)).Cast<IAccountPipeline>();
+            Console.WriteLine(string.Join("\n", pipelineObjects.Select(b=>b.Process(null))).ToArray());
         }
     }
 }
