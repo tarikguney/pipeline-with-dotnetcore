@@ -2,6 +2,8 @@
 using System.Runtime.Loader;
 using System.IO;
 using System.Linq;
+using System.Xml;
+using System.Collections.Generic;
 
 namespace Program
 {
@@ -9,18 +11,25 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            var currentAssembly = typeof(Program).Assembly;
-            var currentPath = currentAssembly.Location;
-            var currentDirectory = Directory.GetParent(currentPath).FullName;
-            var assemblies = Directory
-                .GetFiles(currentDirectory, "*.dll")
-                .Select(f => Path.GetFileName(f))
-                .Except(new[] { $"{currentAssembly.GetName().Name}.dll" });
+            var pipelineContent = File.ReadAllText("Pipeline.xml");
+            var pipelineXml = new XmlDocument();
+            pipelineXml.LoadXml(pipelineContent);
+            var processNodes = pipelineXml.SelectNodes("/Pipeline/Process").Cast<XmlNode>();
+            var types = new List<Type>();
 
-            foreach(var assemblyName in assemblies){
-                var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyName);
-                // Removing this code...
+            var currentPath = Directory.GetParent(typeof(Program).Assembly.Location);
+
+            foreach (var processNode in processNodes)
+            {
+                var assemblyName = processNode.Attributes["Assembly"].Value;
+                var typeName = processNode.Attributes["Type"].Value;
+
+                var assembly = AssemblyLoadContext.Default
+                    .LoadFromAssemblyPath(Path.Combine(currentPath.FullName, assemblyName));
+                types.Add(assembly.GetExportedTypes().First(a => a.FullName == typeName));
             }
+
+            Console.WriteLine(string.Join("\n", types.Select(a => a.FullName).ToArray()));
         }
     }
 }
