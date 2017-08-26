@@ -36,7 +36,10 @@ namespace Program
             account.LastName = "Guney";
             account.Balance = 1000;
 
-            pipelineObjects.Select(b => b.Process(account));
+            foreach(pipelineObject in pipelineObjects){
+            {
+                pipelineObject.Process(account);
+            }
             ObjectDumper.Write(account, 1, Console.Out);
         }
     }
